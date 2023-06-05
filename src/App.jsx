@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 const App = () => {
   const [newItem, setNewItem] = useState("");
+  const [ticked, setTicked] = useState(false);
   const [toDos, setToDos] = useState(() => {
     const toDosInLocalStorageString = localStorage.getItem("toDos");
     if (toDosInLocalStorageString == null) {
@@ -21,15 +22,11 @@ const App = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          const temp = [
-            { id: crypto.randomUUID(), message: newItem },
-            { id: crypto.randomUUID(), message: "Copy of ".concat(newItem) },
-          ];
+          const temp = [{ id: crypto.randomUUID(), message: newItem }];
           setToDos(() => {
             const newToDos = toDos.concat(temp);
             return newToDos;
           });
-
           clearNewItem();
         }}
       >
@@ -52,8 +49,19 @@ const App = () => {
         </button>
       </form>
       <h1>To Do List</h1>
+
       {toDos.map((toDo) => (
         <div key={toDo.id}>
+          <input
+            type="checkbox"
+            onClick={() => {
+              const newToDos = toDos.filter(
+                (currentToDo) => currentToDo.id !== toDo.id
+              );
+              setToDos(newToDos);
+              localStorage.setItem("toDos", newToDos);
+            }}
+          />
           <p>{toDo.message}</p>
           <button
             type="button"
@@ -61,7 +69,6 @@ const App = () => {
               const newToDos = toDos.filter(
                 (currentToDo) => currentToDo.id !== toDo.id
               );
-              console.log(newToDos);
               setToDos(newToDos);
             }}
           >
