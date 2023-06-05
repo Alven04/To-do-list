@@ -23,7 +23,7 @@ const App = () => {
           e.preventDefault();
           const temp = [
             { id: crypto.randomUUID(), message: newItem },
-            { id: crypto.randomUUID(), message: "copy ".concat(newItem) },
+            { id: crypto.randomUUID(), message: "Copy of ".concat(newItem) },
           ];
           setToDos(() => {
             const newToDos = toDos.concat(temp);
@@ -51,6 +51,7 @@ const App = () => {
           Clear Storage
         </button>
       </form>
+      <h1>To Do List</h1>
       {toDos.map((toDo) => (
         <div key={toDo.id}>
           <p>{toDo.message}</p>
