@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
+import Edit from "./Edit";
+import Completed from "./Completed";
 const App = () => {
+  // 1 Todo Item
   const [newItem, setNewItem] = useState("");
   const [ticked, setTicked] = useState(false);
+  const [isEdit, setIsEdit] = useState("");
+  const [selected, setSelected] = useState();
+  // Todo List
   const [toDos, setToDos] = useState(() => {
     const toDosInLocalStorageString = localStorage.getItem("toDos");
     if (toDosInLocalStorageString == null) {
@@ -9,9 +15,11 @@ const App = () => {
     }
     return JSON.parse(toDosInLocalStorageString);
   });
+
   useEffect(() => {
     localStorage.setItem("toDos", JSON.stringify(toDos));
   }, [toDos]);
+
   function clearNewItem() {
     setNewItem("");
   }
@@ -74,6 +82,17 @@ const App = () => {
           >
             Delete
           </button>
+          <button
+            onClick={() => {
+              setIsEdit(true);
+              setSelected(toDo.id);
+            }}
+          >
+            Edit
+          </button>
+          {isEdit && selected === toDo.id && (
+            <Edit props={{ isEdit, setIsEdit, toDos, setToDos, toDo }} />
+          )}
         </div>
       ))}
     </>
