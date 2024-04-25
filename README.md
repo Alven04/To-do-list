@@ -34,12 +34,4 @@ While this project currently provides basic functionality, there are several enh
   - Filtering tasks by category
 
 
-bash
-Copy code
-git clone https://github.com/your_username/your_project.git
-Contributing
-Contributions are welcome! If you have any ideas for improvements or bug fixes, feel free to submit a pull request.
-
-License
-This project is licensed under the MIT License.
 
